@@ -1,6 +1,36 @@
 {% extends "mushroom/base.html" %}
+    {% load staticfiles %}
 {% block content %}
     <div class="jumbotron">
         <h1>Welcome to Mushroom Incubator!</h1>
+    
+
+
+<!-- background -->
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static "mush_pics/4f82757a4698922c3e-71979158__66465.1500293551.jpg" %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Chanterelle Mushroom</h5>
+          <p>Contains fiber and are a good source of vitamins B and D</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static "mush_pics/Roasted-Portobello-Mushroom-Recipe-2-1200.jpg" %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Portobello Mushroom</h5>
+          <p>Portobello mushrooms are an excellent source of vitamins B and D</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static "mush_pics/shiitake-double-cropped.jpg" %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Shiitake</h5>
+          <p>Used for boosing the immune system, hardens arteries and contains an anti-aging agent.</p>
+        </div>
+      </div>
     </div>
+  </div>
+  </div>
 {% endblock %}
