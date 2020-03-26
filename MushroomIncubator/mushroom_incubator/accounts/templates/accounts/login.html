@@ -1,0 +1,23 @@
+{% extends 'mushroom/base.html' %}
+
+{% block content%}
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Login:</h2>
+
+        {% if form.errors %}
+        <p>Username and/or password didn't match. Try again.</p>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-primary" value="Login">
+            <input type="hidden" name="next" value="{{next}}">
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

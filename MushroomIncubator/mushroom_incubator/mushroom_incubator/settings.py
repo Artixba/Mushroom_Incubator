@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'mushroom_site/templates/mushroom')
 STATIC_DIR = os.path.join(BASE_DIR, 'mushroom_site/static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'mushroom_site/media')
- 
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mushroom_site'
+    'mushroom_site',
+    'accounts',
+    'groups',
+    'mushrooms'
 ]
 
 MIDDLEWARE = [
@@ -138,3 +141,5 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 LOGIN_URL = '/basic_app/user_login'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
