@@ -3,14 +3,23 @@
     font-size: 1.5em;
     text-align: center;
     margin-bottom: 10px;
+<<<<<<< HEAD
 
 
+=======
+   
+    
+>>>>>>> e7d823baf4af5c08fc540fdbe2f09c8df63bc561
 }
 
 .navbar-brand{
     font-size: 1.25em;
     text-align: center;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> e7d823baf4af5c08fc540fdbe2f09c8df63bc561
 }
 
 
@@ -39,8 +48,11 @@ body{
     text-align: center;
     color: white;
 
+<<<<<<< HEAD
     /*! border: black; */
     border-width: thick;
+=======
+>>>>>>> e7d823baf4af5c08fc540fdbe2f09c8df63bc561
 }
 
 .aboutjumbo{
@@ -51,6 +63,7 @@ body{
     height: auto;
     border-radius: 10px;
     box-shadow: 10px 7px 5px black;
+<<<<<<< HEAD
 
 }
 
@@ -68,4 +81,7 @@ body{
 .carousel-caption{
     background-color: rgba(0,0,0,.65);
     border-radius: 5px;
+=======
+    
+>>>>>>> e7d823baf4af5c08fc540fdbe2f09c8df63bc561
 }
