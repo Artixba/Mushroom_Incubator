@@ -1,5 +1,9 @@
+from django.contrib import admin
 from django.urls import path, include
-from mushroom_site import views
+from . import views
+
+
+
 
 urlpatterns = [
     path('',views.indexView.as_view(),name='index'),

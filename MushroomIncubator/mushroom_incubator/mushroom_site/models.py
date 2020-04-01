@@ -30,3 +30,22 @@ class UserProfileInfo(auth.models.User, auth.models.PermissionsMixin):
 
     def __str__(self):
         return "@{}".format(self.username)
+
+class Contact(models.Model):
+    first_name = models.CharField(max_length=50,default='')
+    last_name = models.CharField(max_length=50,default='')
+    email = models.EmailField()
+    message = models.TextField()
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        
+
+    # def get_absolute_url(self):
+    #     return reverse("index",kwargs={'pk':self.pk})
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from mushroom_site.models import UserProfileInfo
-from django.core.mail import send_mail
+from .models import UserProfileInfo, Contact
+
 
 
 
@@ -17,8 +17,11 @@ class UserProfileInfoForm(forms.ModelForm):
         model = UserProfileInfo
         fields = ('selected_mushroom',)
 
-class ContactForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
-    sender = forms.EmailField()
-    cc_myself = forms.BooleanField(required=False)
+class ContactForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = Contact
+        fields = ('first_name', 'last_name', 'email', 'message')

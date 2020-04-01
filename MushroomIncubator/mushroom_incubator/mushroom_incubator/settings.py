@@ -28,6 +28,7 @@ SECRET_KEY = '9y_epg9p(&b01w!ck7fo9zvh02q0u2$zn)5kx=3v%#w0@+t2sl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = []
 
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'mushroom_site',
     'accounts',
     'groups',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mushroom_incubator.urls'
@@ -143,3 +146,5 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/basic_app/user_login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+
+INTERNAL_IPS = ['127.0.0.1']
