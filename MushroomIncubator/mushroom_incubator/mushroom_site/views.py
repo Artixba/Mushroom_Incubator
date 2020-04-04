@@ -17,26 +17,6 @@ class contactView(CreateView):
     redirect_field_name = 'index.html'
     form_class = forms.ContactForm
 
-    def form_valid(self,form):
-        self.object =  form.save(commit=False)
-        self.object.contact = self.request.contact 
-        self.object.save() 
-        return super().form_valid(form)
- 
-# def contact(request):
-#     template = 'contact.html'
-
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-
-#         if form.is_valid:
-#             form.save()
-#     else:
-#         form = ContactForm()
-#     context = {
-#         'form':form,
-#     }
-#     return render(request, template, context)
     
 
 class placeholderView(TemplateView):

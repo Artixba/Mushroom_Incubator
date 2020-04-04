@@ -42,10 +42,9 @@ class Contact(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        
 
-    # def get_absolute_url(self):
-    #     return reverse("index",kwargs={'pk':self.pk})
+    def get_absolute_url(self):
+        return reverse("contact")
 
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
+
+   
