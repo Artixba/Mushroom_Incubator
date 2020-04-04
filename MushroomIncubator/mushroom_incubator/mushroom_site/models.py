@@ -44,7 +44,7 @@ class Contact(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("contact")
+        return reverse("index")
 
 
    

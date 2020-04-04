@@ -1,9 +1,7 @@
 from django.views.generic import TemplateView, CreateView
 from . import forms, models
 from .forms import ContactForm
-from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+
 # Pages
 class indexView(TemplateView):
     template_name = 'index.html'
