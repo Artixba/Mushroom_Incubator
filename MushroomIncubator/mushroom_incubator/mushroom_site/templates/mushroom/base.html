@@ -34,19 +34,29 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
-                    <li><a href="{% url 'accounts:profile' %}">Welcome: {{ user.username }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}" style="position: relative;margin-left: 535px;">Log Out</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:profile' %}" style="position: relative;margin-right: 10px;margin-left: 20px;">Welcome: {{ user.username }}</a></li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup' %}"><span class="glyphicon glyphicon-plus"></span>Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup' %}" style="position: relative;margin-left: 650px; padding-right:30px; padding-left: 30px;"><span class="glyphicon glyphicon-plus"></span>Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}" style="position: relative;margin-right: 10px;margin-left: 20px;"><span class="glyphicon glyphicon-user"></span>Login</a></li>
                 {% endif %}
             </ul>
         </div>
         <!-- </div> -->
     </nav>
+    
     <div class="container">
         {% block content %}
         {% endblock %}
+    </div>
+    <div class="footer">
+        <ul class = "footer-group">
+             <a class = "footer-item" href="{% url 'index' %}">Mushroom Incubator</a> 
+             <a class = "footer-item" href="{% url 'how' %}">How it works</a> 
+             <a class = "footer-item" href="{% url 'about' %}">About us</a> 
+             <a class = "footer-item" href="{% url 'contact' %}">Contact</a> 
+             <a class = "footer-item" href="{% url 'placeholder' %}">placeholder</a> 
+        </ul>
     </div>
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
