@@ -1,0 +1,18 @@
+{% extends "mushroom/base.html" %}
+{% block content %}
+
+
+
+ <div class="sidebar">
+     <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active navlink" href="{% url 'accounts:profile' %}">Profile</a></li>
+        <li class="nav-item"><a class="nav-link disabled navlink" href="#">Create Mushrooms</a></li>
+        <li class="nav-item"><a class="nav-link navlink" href="{% url 'accounts:manage' %}">Manage Mushrooms</a></li>
+        <li class="nav-item"><a class="nav-link disabled navlink" href="#">Mushrooom Progress</a></li>
+    </ul>
+</div>
+
+
+{% block sidebar %}
+{% endblock sidebar %}
+{% endblock content %}

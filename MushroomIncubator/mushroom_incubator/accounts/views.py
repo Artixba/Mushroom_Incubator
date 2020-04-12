@@ -11,3 +11,6 @@ class SignUp(CreateView):
 
 class Profile(TemplateView):
     template_name = 'profile.html'
+
+class Manage(TemplateView):
+    template_name = 'manage.html'
