@@ -1,0 +1,52 @@
+<pre>
+    <font color="#95a5a6">&#47;*</font>
+    <font color="#95a5a6"> &nbsp;Blink</font>
+    <font color="#95a5a6"></font>
+    <font color="#95a5a6"> &nbsp;Turns an LED on for one second, then off for one second, repeatedly.</font>
+    <font color="#95a5a6"></font>
+    <font color="#95a5a6"> &nbsp;Most Arduinos have an on-board LED you can control. On the UNO, MEGA and ZERO</font>
+    <font color="#95a5a6"> &nbsp;it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN is set to</font>
+    <font color="#95a5a6"> &nbsp;the correct LED pin independent of which board is used.</font>
+    <font color="#95a5a6"> &nbsp;If you want to know what pin the on-board LED is connected to on your Arduino</font>
+    <font color="#95a5a6"> &nbsp;model, check the Technical Specs of your board at:</font>
+    <font color="#95a5a6"> &nbsp;</font><u><font color="#95a5a6">https:&#47;&#47;www.arduino.cc&#47;en&#47;Main&#47;Products</font></u><font color="#95a5a6"></font>
+    <font color="#95a5a6"></font>
+    <font color="#95a5a6"> &nbsp;modified 8 May 2014</font>
+    <font color="#95a5a6"> &nbsp;by Scott Fitzgerald</font>
+    <font color="#95a5a6"> &nbsp;modified 2 Sep 2016</font>
+    <font color="#95a5a6"> &nbsp;by Arturo Guadalupi</font>
+    <font color="#95a5a6"> &nbsp;modified 8 Sep 2016</font>
+    <font color="#95a5a6"> &nbsp;by Colby Newman</font>
+    <font color="#95a5a6"></font>
+    <font color="#95a5a6"> &nbsp;This example code is in the public domain.</font>
+    <font color="#95a5a6"></font>
+    <font color="#95a5a6"> &nbsp;</font><u><font color="#95a5a6">http:&#47;&#47;www.arduino.cc&#47;en&#47;Tutorial&#47;Blink</font></u><font color="#95a5a6"></font>
+    <font color="#95a5a6">*&#47;</font>
+    
+    
+    <font color="#434f54">&#47;&#47; the setup function runs once when you press reset or power the board</font>
+    <font color="#00979c">int</font> <font color="#000000">ledPin</font> <font color="#434f54">=</font> <font color="#000000">13</font><font color="#000000">;</font>
+    <font color="#00979c">void</font> <font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#000000">{</font>
+     &nbsp;<font color="#434f54">&#47;&#47; initialize digital pin LED_BUILTIN as an output.</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">13</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">8</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">2</font><font color="#434f54">,</font> <font color="#00979c">OUTPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">7</font><font color="#434f54">,</font> <font color="#00979c">INPUT</font><font color="#000000">)</font><font color="#000000">;</font>
+    <font color="#000000">}</font>
+    
+    <font color="#434f54">&#47;&#47; the loop function runs over and over again forever</font>
+    <font color="#00979c">void</font> <font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font> <font color="#000000">{</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">13</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font> 
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">8</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">2</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">7</font><font color="#434f54">,</font> <font color="#00979c">HIGH</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">500</font><font color="#000000">)</font><font color="#000000">;</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">13</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">8</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">2</font><font color="#434f54">,</font> <font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">digitalWrite</font><font color="#000000">(</font><font color="#000000">7</font><font color="#434f54">,</font><font color="#00979c">LOW</font><font color="#000000">)</font><font color="#000000">;</font>
+     &nbsp;<font color="#d35400">delay</font><font color="#000000">(</font><font color="#000000">500</font><font color="#000000">)</font><font color="#000000">;</font>
+     
+    <font color="#000000">}</font>
+    
+    </pre>
