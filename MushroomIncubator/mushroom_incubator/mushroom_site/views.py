@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView
 from . import forms, models
 from .forms import ContactForm
@@ -22,3 +23,7 @@ class placeholderView(TemplateView):
 
 class howView(TemplateView):
     template_name = 'how.html'
+
+def view_404(request, *args, **kwargs):
+    
+    return render(request, 'mushroom/404.html')

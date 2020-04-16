@@ -1,7 +1,9 @@
+from django.conf.urls import handler404
 from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+handler404 = 'mushroom_site.views.view_404'
 
 
 

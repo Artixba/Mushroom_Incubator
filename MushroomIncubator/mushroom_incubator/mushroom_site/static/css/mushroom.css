@@ -142,6 +142,28 @@ body{
 
 }
 
+.placeholder{
+    background-color: rgba(24, 24, 24, 0.815);
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+}
+
+.fof{
+    text-align: center;
+    background-color: rgba(24, 24, 24, 0.815);
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+}
+
+.how{
+    background-color: rgba(24, 24, 24, 0.815);
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+}
+
 .d-inline-block{
     border-radius: 10px;
     margin-right: 15px;

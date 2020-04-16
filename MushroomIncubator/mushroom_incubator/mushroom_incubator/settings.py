@@ -29,7 +29,7 @@ SECRET_KEY = '9y_epg9p(&b01w!ck7fo9zvh02q0u2$zn)5kx=3v%#w0@+t2sl'
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
