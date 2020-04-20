@@ -25,7 +25,8 @@ urlpatterns = [
     path('',include('mushroom_site.urls')),
     path('accounts/', include('accounts.urls',namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('groups/',include('groups.urls',namespace='groups'))
+    path('mushrooms/', include('mushrooms.urls',namespace='mushrooms'))
+    
 
 ]
 

@@ -15,7 +15,7 @@ class UserForm(forms.ModelForm):
 class UserProfileInfoForm(forms.ModelForm):
     class Meta():
         model = UserProfileInfo
-        fields = ('selected_mushroom',)
+        fields = ('Username',)
 
 class ContactForm(forms.ModelForm):
 

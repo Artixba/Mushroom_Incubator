@@ -13,7 +13,9 @@ urlpatterns = [
     path('contact/',views.contactView.as_view(),name='contact'),
     path('placeholder/',views.placeholderView.as_view(),name='placeholder'),
     path('how/',views.howView.as_view(),name='how'),
-    path('accounts/',include('accounts.urls',namespace='accounts')),
-    path('accounts/',include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls',namespace='accounts')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('mushrooms/', include('mushrooms.urls',namespace='mushrooms'))
+    
 
 ]

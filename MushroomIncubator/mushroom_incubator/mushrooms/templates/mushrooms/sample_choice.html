@@ -1,0 +1,15 @@
+{% extends "mushroom/base.html" %}
+{% block content %}
+
+
+<div class="jumbotron">
+    <h1>A list of choices</h1>
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+</div>
+
+
+
+{% endblock %}
