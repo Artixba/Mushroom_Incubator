@@ -4,9 +4,12 @@
 
 <div class="jumbotron">
     <h1>A list of choices</h1>
-
-    {% csrf_token %}
-    {{ form.as_p }}
+    <select name="" id="">
+        <option value="">{% csrf_token %}
+            {{ form.as_p }}</option>
+        
+    </select>
+ 
     
 </div>
 

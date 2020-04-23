@@ -1,0 +1,16 @@
+{% extends "mushroom/base.html" %}
+{% block content %}
+
+<div class="jumbotron">
+    <h1>Delete {{mushroom.title}} and end progress on growing {{mushroom.mushroom_choices}}? </h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Delete">
+    <a class="btn btn-light" href="{% url 'mushrooms:detail' pk=mushroom.pk %}">Cancel</a>
+</form>
+</div>
+
+
+
+{% endblock %}

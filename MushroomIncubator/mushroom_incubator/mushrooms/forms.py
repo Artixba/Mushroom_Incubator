@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from .models import Mushroom
 
 class MushroomForm(forms.ModelForm):
-    class Meta:
+
+    class Meta():
         model = Mushroom
-        fields = ['title']
+        fields = ('title','mushroom_choices')
 

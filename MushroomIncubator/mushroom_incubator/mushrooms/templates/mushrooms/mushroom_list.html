@@ -1,0 +1,16 @@
+{% extends "accounts/base_profile.html" %}
+{% block sidebar %}
+
+<div class="jumbotron">
+    <h1>Mushroom list</h1>
+    <ol>
+        {% for mushroom in mushrooms %}
+        <h2><li><a href="{{mushroom.id}}">{{mushroom.title}}</a></li></h2>
+        {% endfor %}
+    </ol>
+    <div class="">
+        <p><a class="btn btn-primary" href="{% url 'mushrooms:create' %}">Grow new mushroom</a></p>
+    </div>
+</div>
+
+{% endblock %}

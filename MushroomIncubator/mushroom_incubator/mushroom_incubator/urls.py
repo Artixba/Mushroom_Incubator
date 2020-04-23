@@ -23,9 +23,9 @@ from django.contrib.auth import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('mushroom_site.urls')),
-    path('accounts/', include('accounts.urls',namespace='accounts')),
+    path('accounts/', include('accounts.urls',namespace='accountsa')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('mushrooms/', include('mushrooms.urls',namespace='mushrooms'))
+    path('mushrooms/', include('mushrooms.urls',namespace='mushroomsa'))
     
 
 ]
