@@ -15,6 +15,14 @@ class SampleChoiceView(TemplateView):
     template_name = 'sample_choice.html'
     form_class = MushroomForm
 
+# def ExampleView(request):
+#     auth_token = "mKU7v6Mt6-aUA_vgBAg0ycJwpJ0aO_1n"
+#     pin = "A1"
+#     if request.method == 'POST':
+#         request = requests.get('http://blynk-cloud.com/auth_token/get/pin')
+#         response_body = urlopen(request).read()
+#     return render(request,'mushrooms/sample_choice.html', {response_body:'response_body'})
+
 class CreateMushroomView(LoginRequiredMixin, CreateView):
     fields = ('title', 'mushroom_choices')
     model = models.Mushroom
@@ -36,4 +44,3 @@ class MushroomListView(ListView):
     template_name = 'mushrooms/mushroom_list.html'
     context_object_name = 'mushrooms'
 
-    

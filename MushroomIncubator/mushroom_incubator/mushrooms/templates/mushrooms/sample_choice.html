@@ -1,18 +1,20 @@
 {% extends "mushroom/base.html" %}
+{% load static %}
 {% block content %}
 
 
+
 <div class="jumbotron">
-    <h1>A list of choices</h1>
-    <select name="" id="">
-        <option value="">{% csrf_token %}
-            {{ form.as_p }}</option>
-        
-    </select>
- 
+    <h1>Blynk</h1>
+    
+    <h4 id="Blynk1"></h4>
+    <h4 id="Blynk2"></h4>
+    <h4 id="Blynk3"></h4>
+    <button id="Bbutton">Get D2 Status</button>
+    <button id="Abutton">Get D4 status</button>
+    <button id="Cbutton">Get both? status</button>
     
 </div>
-
-
+<script src="{% static 'js/blynk.js' %}"></script>
 
 {% endblock %}

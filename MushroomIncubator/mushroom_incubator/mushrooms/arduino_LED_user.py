@@ -1,4 +1,4 @@
-
+import sys
 import serial
 import time
 
@@ -7,7 +7,8 @@ import time
 ser = serial.Serial('COM3', 9800)
 
 def led_on_off():
-    user_input = input("\n Type on / off / quit : ")
+    print("\n Type on / off / quit : ")
+    user_input = sys.argv[1]
     if user_input =="on":
         print("LED is on...")
         time.sleep(0.1) 
