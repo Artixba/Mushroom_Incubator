@@ -15,23 +15,26 @@
         <div class="arduino-mod">
             <h1>TEMP/HUM SENSOR</h1>
             <div class="ard-disp">
-                <h1 id="temp">Here is where temperature and humidity is displayed</h1>
-                <h1 id="hum"></h1>
+                <div>Target temperature(°F):<h3 id="temptarget">Here is where temperature and humidity is displayed</h3></div>
+                <div>Actual temperature(°F):<h3 id="temp"></h3></div>
+                <div>Target humidity(%RH):<h3 id="humtarget"></h3></div>
+                <div>Actual humidity(%RH):<h3 id="hum"></h3></div>                
             </div>
             <button id="temp_hum_button">Refresh Temp/Hum</button>
         </div>
         <div class="arduino-mod">
             <h1 >C02 SENSOR</h1>
             <div class="ard-disp">
-                <h1 id="co2">Here is where carbon dioxide levels are shown</h1>
+                <div>Target CO2(ppm):<h3 id="co2target"></h3></div>
+                <div>Actual CO2(ppm)<h3 id="co2">Here is where carbon dioxide levels are shown</h3></div>                
             </div>
             <button id="co2_button">Refresh CO2</button>
         </div>
         <div class="arduino-mod">
             <h1>LIGHT SENSOR</h1>
             <div class="ard-disp">
-                <h1 id="light">Here is where the light levels are shown</h1>
-                <h1 id="time"></h1>
+                <div>Light level(Lux):<h3 id="light">Here is where the light levels are shown</h3></div>
+                <h3 id="time"></h3>
             </div>
             <button id="light_button">Refresh Light</button>
         </div>
