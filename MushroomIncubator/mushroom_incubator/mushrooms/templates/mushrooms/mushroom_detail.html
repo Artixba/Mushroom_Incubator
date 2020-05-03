@@ -1,9 +1,12 @@
 {% extends "accounts/base_profile.html" %}
 {% block sidebar %}
 
+{% load static %}
+
+<script></script>
+
 <div class="jumbotron">
     <h1> You are currently growing {{mushroom.mushroom_choices}} mushrooms!</h1>
-    
     <h2>Details:</h2>
     <ul>
         <li>Time started: {{mushroom.created_at}}</li>
@@ -12,28 +15,31 @@
         <div class="arduino-mod">
             <h1>TEMP/HUM SENSOR</h1>
             <div class="ard-disp">
-                <h1>Here is where temperature and humidity is displayed</h1>
+                <h1 id="temp">Here is where temperature and humidity is displayed</h1>
+                <h1 id="hum"></h1>
             </div>
+            <button id="temp_hum_button">Refresh Temp/Hum</button>
         </div>
         <div class="arduino-mod">
-            <h1>C02 SENSOR</h1>
+            <h1 >C02 SENSOR</h1>
             <div class="ard-disp">
-                <h1>Here is where carbon dioxide levels are shown</h1>
+                <h1 id="co2">Here is where carbon dioxide levels are shown</h1>
             </div>
+            <button id="co2_button">Refresh CO2</button>
         </div>
         <div class="arduino-mod">
             <h1>LIGHT SENSOR</h1>
             <div class="ard-disp">
-                <h1>Here is where the light levels are shown</h1>
+                <h1 id="light">Here is where the light levels are shown</h1>
+                <h1 id="time"></h1>
             </div>
+            <button id="light_button">Refresh Light</button>
         </div>
-        
     </div>
 </div>
-
 <div class="">
     <p><a class="btn btn-danger" href="{% url 'mushrooms:delete' pk=mushroom.pk  %}">Delete</a></p>
-
 </div>
+<script src="{% static 'js/blynk.js' %}"></script>
 
 {% endblock %}
