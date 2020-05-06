@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.http import Http404,HttpResponse, HttpRequest
+from urllib.request import urlopen
+import json, requests
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, CreateView, DeleteView, UpdateView, DetailView, ListView
@@ -15,13 +17,20 @@ class SampleChoiceView(TemplateView):
     template_name = 'sample_choice.html'
     form_class = MushroomForm
 
-# def ExampleView(request):
-#     auth_token = "mKU7v6Mt6-aUA_vgBAg0ycJwpJ0aO_1n"
-#     pin = "A1"
-#     if request.method == 'POST':
-#         request = requests.get('http://blynk-cloud.com/auth_token/get/pin')
-#         response_body = urlopen(request).read()
-#     return render(request,'mushrooms/sample_choice.html', {response_body:'response_body'})
+def exampleView(request):
+    auth_token = "jWL3x5xRTSLnDnXZyuXxtNiznJ8ikLAm"
+    pin = "V6"
+    
+    apirequest = (f'http://blynk-cloud.com/{auth_token}/get/{pin}')
+    r = requests.get(apirequest)
+    context = {
+        'hello': 'hellos',
+        'num1': 1254,
+        'num2': 536,
+        'response': r
+    }
+    
+    return render(request,'mushrooms/sample_choice.html', context)
 
 class CreateMushroomView(LoginRequiredMixin, CreateView):
     fields = ('title', 'mushroom_choices')
