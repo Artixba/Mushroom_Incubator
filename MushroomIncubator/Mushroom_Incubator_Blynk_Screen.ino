@@ -6,23 +6,15 @@
   WARNING!
     It's very tricky to get it working. Please read this article:
     http://help.blynk.cc/hardware-and-libraries/arduino/esp8266-with-at-firmware
-
-  This example shows how value can be pushed from Arduino to
-  the Blynk App.
-
-  NOTE:
-  BlynkTimer provides SimpleTimer functionality:
-    http://playground.arduino.cc/Code/SimpleTimer
-
-  App project setup:
-    Value Display widget attached to Virtual Pin V5
- *************************************************************/
+*************************************************************/
 
 #define BLYNK_PRINT Serial
 // Hardware Serial on Mega, Leonardo, Micro...
 #define EspSerial Serial1
 // Your ESP8266 baud rate:
 #define ESP8266_BAUD 115200
+#include <Adafruit_Sensor.h>
+#include "Adafruit_TSL2591.h"
 
 #include <ESP8266_Lib.h>
 #include <BlynkSimpleShieldEsp8266.h>
@@ -36,9 +28,10 @@ char auth[] = "mKU7v6Mt6-aUA_vgBAg0ycJwpJ0aO_1n";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "Celaya";
-char pass[] = "FamiliaPerez5";
-//char pass[] = "ni+bd+h3h+fg";
+char ssid[] = "ATTpWnSUDS";
+char pass[] = "2dzfcvphf26=";
+/*char ssid[] = "Celaya";
+char pass[] = "FamiliaPerez5";*/
 
 ESP8266 wifi(&EspSerial);
 BlynkTimer timer;
@@ -62,23 +55,24 @@ boolean targetMinusPress = false;
 //==== SHT30 Temp/Humid Sensor=======================================
 #define VREF 5.0
 #define TEMPERATURE_PIN A1
-#define TEMPERATURE_PIN2 A2
 #define HUMIDITY_PIN A0
-#define HUMIDITY_PIN A3
 #define ADC_RESOLUTION 1024
 
-int targetF(0), tempF, targetRH(0), RH, concentration, targetCO2(0), targetLight(0), targetValTen(0), targetValTenL(0);
+int targetF(0), tempF, targetRH(0), RH, concentration, targetCO2(0), lightLuminosity, lightTimer(0), targetValTen(0), targetValTenL(0);
+char lightTimeValue;
 float analogVolt;
-const int HeatCTRL = 8;
-const int HumCTRL = 9;
+const int TempHot = 8;
+const int TempCool = 9;
+const int HumCTRL = 10;
 
 //=== SEN0219 CO2 Sensor=============================================
 int CO2In = A4;
-const int FanOn = 10;
+const int CO2CTRL = 11;
 
 //=== Light Sensor===================================================
 int LightIn = A5;
-const int LightOn = 11;
+const int LightCTRL = 12;
+Adafruit_TSL2591 tsl = Adafruit_TSL2591(2591); // pass in a number for the sensor identifier 
 
 //===================================================================
 // In the app, Widget's reading frequency should be set to PUSH. This means
@@ -105,12 +99,14 @@ void setup()
   myGLCD.clrScr();
   myTouch.InitTouch();
   myTouch.setPrecision(PREC_MEDIUM);
+  //configureSensor();
 
   analogReference(DEFAULT); //Set the default voltage of the reference voltage
-  pinMode(HeatCTRL, OUTPUT); // TEMPERATURE CONTROL MODULE
+  pinMode(TempHot, OUTPUT); // TEMPERATURE CONTROL MODULE HOT
+  pinMode(TempCool, OUTPUT); // TEMPERATURE CONTROL MODULE COOL
   pinMode(HumCTRL, OUTPUT);  // HUMIDITY CONTROL MODULE
-  pinMode(FanOn, OUTPUT);  // FAN CONTROL MODULE
-  pinMode(LightOn, OUTPUT);  // LIGHT CONTROL MODULE
+  pinMode(CO2CTRL, OUTPUT);  // FAN CONTROL MODULE
+  pinMode(LightCTRL, OUTPUT);  // LIGHT CONTROL MODULE
 
   timer.setInterval(3000L, getTempReading); //========== Temperature
   timer.setInterval(3000L, getHumReading);  //========== Humidity
@@ -461,21 +457,24 @@ void getTempHumControl() {
   rangePF = targetF + 3;
   rangeMF = targetF - 3;
   if (tempF > rangePF) {  // When temperature is 3 degrees higher than target temp,HEATING OFF(low)
-    digitalWrite(HeatCTRL, LOW); // TEMPERATURE CONTROL OFF
+    digitalWrite(TempHot, HIGH); // TEMPERATURE HOT OFF
+    digitalWrite(TempCool, LOW); //:TEMPERATURE COOL ON
   }
   else if (tempF < rangeMF) { // When temperature is 3 degrees lower than terget temp, HEATING ON
-    digitalWrite(HeatCTRL, HIGH);  // TEMPERATURE CONTROL ON
+    digitalWrite(TempHot, LOW);  // TEMPERATURE HOT ON
+    digitalWrite(TempCool, HIGH); // TEMPERATURE COOL OFF
   }
   else {  // When temperature is within 3 degrees target temp, HEATING OFF
-    digitalWrite(HeatCTRL, LOW); // TEMPERATURE CONTROL OFF
+    digitalWrite(TempHot, LOW); // TEMPERATURE HEAT OFF
+    digitalWrite(TempCool, LOW); // TEMPERATURE COOL OFF
   }
 
   rangePH = targetRH + 3;
   rangeMH = targetRH - 3;
-  if (RH > rangePH) {  // When humidty is 3 percent higher than target humidity, humidifier OFF
+  if (RH < rangePH) {  // When humidty is 3 percent higher than target humidity, humidifier OFF
     digitalWrite(HumCTRL, LOW); // HUMIDITY CONTROL OFF
   }
-  else if (RH < rangeMH) { // When temperature is 3 percent lower than target humidity, humidifier ON
+  else if (RH > rangeMH) { // When temperature is 3 percent lower than target humidity, humidifier ON
     digitalWrite(HumCTRL, HIGH);  // HUMIDITY CONTROL ON
   }
   else{   //When humidity is withtin 3 percent of target humdity
@@ -484,8 +483,8 @@ void getTempHumControl() {
 }
 
 //===================================================================
-// Create a function that uses a timer that send info every 3 seconds
-// The info sent will be the sensor info, the info received is the target control
+/* Create a function that uses a timer that send info every 3 seconds
+/ The info sent will be the sensor info, the info received is the target control */
 void getCO2Reading() {
   //Read voltage
   int sensorValue = analogRead(CO2In);
@@ -497,10 +496,16 @@ void getCO2Reading() {
 
   Blynk.virtualWrite(V5, concentration);
 }
+
 //===================================================================
 // CO2 sensor values are printed on the LCD screen
 void drawCO2Values() {
+  int sensorValue = analogRead(CO2In);
 
+  // The analog signal is converted to a voltage
+  int voltage = sensorValue * (5000 / 1024);
+  int voltage_diference = voltage - 400;
+  int concentration = voltage_diference * 50 / 16;
   // Print ACTUAL CO2 level in GREEN
   myGLCD.setFont(SevenSegmentFull);
   myGLCD.setColor(0, 255, 0);
@@ -518,37 +523,68 @@ void drawCO2Values() {
 }
 
 //===================================================================
-// Create a function that uses a timer that send info every 3 seconds
-// The info sent will be the sensor info, the info received is the target control
-
-/*void getLightReading(){
- * 
- *Blynk.virtualWrite(V7, ); 
- }*/
+/* Funciton to get CO2 control*/
+void getCO2Control(){
+  int rangeCO2P(0), rangeCO2M(0);
+  rangeCO2P = targetCO2 + 50;
+  rangeCO2M = rangeCO2P - 50;
+  if (concentration > rangeCO2P) {  // When CO2 is 50 ppm higher than target CO2, Fan OFF
+    digitalWrite(CO2CTRL, LOW); // CO2 CONTROL OFF
+  }
+  else if (concentration < rangeCO2M) { // When CO2 is 50 ppm lower than target CO2, Fan ON
+    digitalWrite(CO2CTRL, HIGH);  // HUMIDITY CONTROL ON
+  }
+  else{   //When CO2 is 50 ppm within than target CO2
+    digitalWrite(CO2CTRL, LOW);
+  }
+}
 
 //===================================================================
-// Get light values
+/* Create a function that uses a timer that send info every 3 seconds
+/ The info sent will be the sensor info, the info received is the target control */
+void getLightReading(){
+ uint16_t lightLuminosity = tsl.getLuminosity(TSL2591_VISIBLE);
+
+ Blynk.virtualWrite(V7, lightLuminosity); 
+ }
+
+//===================================================================
+/* Blynk fuctnion to set light relay ON or OFF depending on the timer set on app */
+BLYNK_WRITE(V12) {    
+  if(param.asInt() == 1){
+    digitalWrite(LightCTRL, HIGH); // Lights are turned on when timer starts
+  }
+  else{
+    digitalWrite(LightCTRL, LOW); // Lights are tunred off when timer ends
+  }
+    lightTimeValue = param.asStr();
+
+}
+/*
+BLYNK_WRITE(V12){
+   lightTimeValue = param.asStr();
+}
+*/
+//===================================================================
+/* Get light values */
 void drawLightValues() {
   // Actual light sensor value
-  int lightSensorVal;
-  lightSensorVal = 1000;
   myGLCD.setFont(SevenSegmentFull);
   myGLCD.setColor(0, 255, 0);
   myGLCD.setBackColor(0, 0, 0);
-  myGLCD.printNumI(lightSensorVal, 10, 135, 4, ' ');
+  myGLCD.printNumI(lightLuminosity, 8, 135, 4, ' ');
 
   // Target control variable
-  targetLight = getSwitchTarget10(targetLight);
   myGLCD.setFont(SevenSegmentFull);
   myGLCD.setColor(255, 0, 0);
   myGLCD.setBackColor(0, 0, 0);
-  myGLCD.printNumI(targetLight, 160, 135, 4, ' ');
+  myGLCD.printNumI(lightTimeValue, 160, 135, 5, ' ');
 
 }
 
 //===================================================================
-// BLYNK_WRITE used for pushing info from app to arduino via virtual pins
-// A BLYNK_WRITE statement for each sensor
+/* BLYNK_WRITE used for pushing info from app to arduino via virtual pins
+/ A BLYNK_WRITE statement for each sensor */
 BLYNK_WRITE(V9) {
   targetF = targetF + param.asInt();
   Blynk.virtualWrite(V2, targetF);
@@ -564,10 +600,6 @@ BLYNK_WRITE(V11) {
   Blynk.virtualWrite(V6, targetCO2);
 }
 
-//BLYNK_WRITE(V12) {
-//  targetRH = targetRH + param.asInt();
-//  Blynk.virtualWrite(V8, targetLight);
-//}
 //===================================================================
 void drawTargetControl() {
   //Minus Button
@@ -588,7 +620,7 @@ void drawTargetControl() {
   myGLCD.setColor(255, 255, 255);
   myGLCD.print(" + ", 212, 203);
 }
-
+ 
 //===================================================================
 // When the plus or minus buttons are pressed the input variable will
 // be increased or decreased by ONE
@@ -680,6 +712,49 @@ int getSwitchTarget10(int targetVal) {
 }
 
 //===================================================================
+int getSwitchTarget30(int targetVal) {
+  // If loop to check for touch input
+  if (myTouch.dataAvailable()) {
+    myTouch.read();
+    x = myTouch.getX();
+    y = myTouch.getY() * (-1) + 240;
+
+    // If we press the minus button the target variable is decreased by 1
+    if ((x >= 110) && (x <= 180) && (y >= 190) && (y <= 230)) {
+      targetMinusPress = true;
+    }
+    else {
+      targetMinusPress = false;
+    }
+    // If we press the plus button the target variable is increased by 1
+    if ((x >= 200) && (x <= 270) && (y >= 190) && (y <= 230)) {
+      targetPlusPress = true;
+    }
+    else {
+      targetPlusPress = false;
+    }
+  }
+
+  // Switch case to ensure that the variable can only be updated if
+  // button is pressed if not, to allow the app to change it
+  switch (targetMinusPress) {
+    case true:  //Minus button pressed
+      if (myTouch.dataAvailable() && !targetPlusPress) {
+        targetVal = targetVal - 10;
+      }
+      break;
+  }
+  switch (targetPlusPress) {
+    case true:  //Minus button pressed
+      if (myTouch.dataAvailable() && targetPlusPress) {
+        targetVal = targetVal + 10;
+      }
+      break;
+  }
+  return targetVal;
+}
+
+//===================================================================
 // Highlights the button when pressed
 void drawFrame(int x1, int y1, int x2, int y2) {
   myGLCD.setColor(255, 0, 0);
@@ -688,4 +763,16 @@ void drawFrame(int x1, int y1, int x2, int y2) {
     myTouch.read();
   myGLCD.setColor(255, 255, 255);
   myGLCD.drawRoundRect (x1, y1, x2, y2);
+}
+
+//===================================================================
+void configureSensor(void)
+{
+  // You can change the gain on the fly, to adapt to brighter/dimmer light situations
+  tsl.setGain(TSL2591_GAIN_MED);      // 25x gain
+  
+  // Changing the integration time gives you a longer time over which to sense light
+  // longer timelines are slower, but are good in very low light situtations!
+   tsl.setTiming(TSL2591_INTEGRATIONTIME_400MS);
+
 }
